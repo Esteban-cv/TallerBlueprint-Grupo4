@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $users = User::all();
 
@@ -20,39 +18,41 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('user.create');
     }
 
-    public function store(UserStoreRequest $request): Response
+    public function store(UserStoreRequest $request)
     {
         $user = User::create($request->validated());
 
-        $request->session()->flash('user.id', $user->id);
+        session()->flash('success', 'Registro creado exitosamente');
 
         return redirect()->route('users.index');
     }
 
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user)
     {
         return view('user.edit', [
             'user' => $user,
         ]);
     }
 
-    public function update(UserUpdateRequest $request, User $user): Response
+    public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->validated());
 
-        $request->session()->flash('user.id', $user->id);
+        session()->flash('success', 'Registro modificado exitosamente');
 
         return redirect()->route('users.index');
     }
 
-    public function destroy(Request $request, User $user): Response
+    public function destroy(Request $request, User $user)
     {
         $user->delete();
+
+        session()->flash('success', 'Registro eliminado exitosamente');
 
         return redirect()->route('users.index');
     }
