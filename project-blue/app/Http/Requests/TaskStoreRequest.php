@@ -23,7 +23,7 @@ class TaskStoreRequest extends FormRequest
             'project_id' => ['required', 'integer', 'exists:projects.id,id'],
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'status' => ['required', 'in:['completado','],
+            'status' => ['required', 'in:["completado","pendiente","cancelado"'],
             'due_date' => ['nullable', 'date'],
         ];
     }
