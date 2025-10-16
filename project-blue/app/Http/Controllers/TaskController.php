@@ -11,7 +11,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('project')->get();
         return view('task.index', [
             'tasks' => $tasks,
         ]);

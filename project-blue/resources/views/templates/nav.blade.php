@@ -5,42 +5,42 @@
     <div class="sidebar-wrapper">
         <div class="logo">
             <a href="#" class="simple-text">
-                Academy Blue
+                PROYECTO AZUL
             </a>
         </div>
         <ul class="nav">
             <li>
-                <a class="nav-link" href="dashboard.html">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="{{ route('categories.index') }}">
+                <a class="nav-link" href="{{ route('tasks.index') }}">
                     <i class="nc-icon nc-circle-09"></i>
-                    <p>Categorías</p>
+                    <p>Tareas</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('courses.index') }}">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-notes"></i>
                     <p>Cursos</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="{{ route('enrollments.index') }}">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>Matrículas</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="{{ route('lessons.index') }}">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-atom"></i>
                     <p>Lecciones</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="./maps.html">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-circle-09"></i>
                     <p>Usuarios</p>
                 </a>

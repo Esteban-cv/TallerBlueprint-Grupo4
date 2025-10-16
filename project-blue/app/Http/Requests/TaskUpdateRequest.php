@@ -20,10 +20,10 @@ class TaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'project_id' => ['required', 'integer', 'exists:projects.id,id'],
+            'project_id' => ['required', 'integer', 'exists:projects,id'],
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'status' => ['required', 'in:["completado","pendiente","cancelado"'],
+            'status' => ['required', 'in:completado,pendiente,cancelado'],
             'due_date' => ['nullable', 'date']
         ];
     }

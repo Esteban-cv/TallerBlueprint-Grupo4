@@ -21,7 +21,8 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Academy Blue</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -29,13 +30,19 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/light-bootstrap-dashboard.css?v=2.0.0') }}" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css" />
+    
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 </head>
 
 <body>
     <div class="wrapper">
         @include('templates/nav')
 
-         <div class="main-panel">
+        <div class="main-panel">
             <!-- Navbar -->
             @include('templates/topbar')
             <!-- End Navbar -->
@@ -50,11 +57,11 @@
                                     <p class="card-category">@yield('subtitle')</p>
                                 </div>
                                 <div class="card-body">
-                                    @yield('content')                                                                        
+                                    @yield('content')
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -68,15 +75,23 @@
     <script src="{{ asset('assets/js/core/popper.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-    <script src="{{ asset('assets/js/plugins/bootstrap-switch.js') }}"></script>    
+    <script src="{{ asset('assets/js/plugins/bootstrap-switch.js') }}"></script>
     <!--  Chartist Plugin  -->
     <script src="{{ asset('assets/js/plugins/chartist.min.js') }}"></script>
     <!--  Notifications Plugin    -->
     <script src="{{ asset('assets/js/plugins/bootstrap-notify.js') }}"></script>
     <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
     <script src="{{ asset('assets/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
-   
+    
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('js/custom.js') }}"></script>
 
 </body>
+
 </html>
