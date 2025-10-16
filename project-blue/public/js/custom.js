@@ -1,4 +1,4 @@
-window.showSuccess = function(message) {
+window.showSuccess = function (message) {
     Swal.fire({
         icon: 'success',
         title: '¡Éxito!',
@@ -8,7 +8,7 @@ window.showSuccess = function(message) {
     });
 };
 
-window.showWarning = function(message) {
+window.showWarning = function (message) {
     Swal.fire({
         icon: 'warning',
         title: 'Atención',
@@ -16,7 +16,7 @@ window.showWarning = function(message) {
     });
 };
 
-window.showError = function(message, title = '¡Oops...!') {
+window.showError = function (message, title = '¡Oops...!') {
     Swal.fire({
         icon: 'error',
         title: title,
@@ -25,14 +25,20 @@ window.showError = function(message, title = '¡Oops...!') {
     });
 };
 
-$(document).ready(function() {
-    $('.datatable').DataTable({ /* ... */ });
-    $(document).on('click', '.btn-delete', function(e) { /* ... */ });
+$(document).ready(function () {
+    $('.datatable').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+        },
+        responsive: true,
+        pageLength: 10,
+        order: [[0, 'asc']]
+    });
 
-    $(document).on('click', '.btn-delete', function(e) {
+    $(document).on('click', '.btn-delete', function (e) {
         e.preventDefault();
         const form = $(this).closest('form');
-    
+
         Swal.fire({
             title: '¿Estás seguro?',
             text: "Esta acción no se puede revertir.",
