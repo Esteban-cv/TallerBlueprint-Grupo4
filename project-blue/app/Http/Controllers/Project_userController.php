@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Project_userStoreRequest;
 use App\Http\Requests\Project_userUpdateRequest;
+use App\Models\Project;
 use App\Models\ProjectUser;
-use App\Models\Project_user;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class Project_userController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $projectUsers = ProjectUser::all();
 
@@ -21,39 +20,46 @@ class Project_userController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
-        return view('projectUser.create');
+        $projects = Project::all();
+        $users = User::all();
+
+        return view('projectUser.create', compact('projects', 'users'));
     }
 
-    public function store(Project_userStoreRequest $request): Response
+    public function store(Project_userStoreRequest $request)
     {
         $projectUser = ProjectUser::create($request->validated());
-
-        $request->session()->flash('projectUser.id', $projectUser->id);
+        session()->flash('success', 'Usuario agregado al proyecto correctamente.');
 
         return redirect()->route('projectUsers.index');
     }
 
-    public function edit(Request $request, Project_user $projectUser): Response
+    public function edit(Request $request, ProjectUser $projectUser)
     {
+        $projects = Project::all();
+        $users = User::all();
+
         return view('projectUser.edit', [
             'projectUser' => $projectUser,
+            'projects' => $projects,
+            'users' => $users,
         ]);
     }
 
-    public function update(Project_userUpdateRequest $request, Project_user $projectUser): Response
+    public function update(Project_userUpdateRequest $request, ProjectUser $projectUser)
     {
         $projectUser->update($request->validated());
-
-        $request->session()->flash('projectUser.id', $projectUser->id);
+        session()->flash('success', 'Asignación actualizada correctamente.');
 
         return redirect()->route('projectUsers.index');
     }
 
-    public function destroy(Request $request, Project_user $projectUser): Response
+    public function destroy(Request $request, ProjectUser $projectUser)
     {
         $projectUser->delete();
+        session()->flash('success', 'Asignación eliminada correctamente.');
 
         return redirect()->route('projectUsers.index');
     }
