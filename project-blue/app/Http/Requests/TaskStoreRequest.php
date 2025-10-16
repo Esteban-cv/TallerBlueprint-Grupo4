@@ -27,4 +27,15 @@ class TaskStoreRequest extends FormRequest
             'due_date' => ['nullable', 'date'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'project_id' => 'poryecto',
+            'name' => 'nombre',
+            'description' => 'descripción',
+            'status' => 'estado',
+            'due_date' => 'fecha de vencimiento'
+        ];
+    }
 }

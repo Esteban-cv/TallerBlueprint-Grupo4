@@ -49,7 +49,6 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
-        session()->flash('success', 'Tarea eliminada correctamente.');
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Tarea eliminada correctamente.');
     }
 }

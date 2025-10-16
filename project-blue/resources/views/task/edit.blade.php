@@ -61,7 +61,7 @@
                 <label for="due_date">Fecha de Vencimiento</label>
                 <input type="date" name="due_date" id="due_date" 
                        class="form-control @error('due_date') is-invalid @enderror" 
-                       value="{{ old('due_date') ?? ($task->due_date ? $task->due_date->format('Y-m-d') : '') }}">
+                       value="{{ old('due_date') ?? ($task->due_date ?? '') }}">
                 @error('due_date')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

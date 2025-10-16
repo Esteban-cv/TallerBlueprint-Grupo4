@@ -1,26 +1,45 @@
-$(document).ready(function() {
-    // Inicializar DataTables en todas las tablas con clase 'datatable'
-    $('.datatable').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-        },
-        responsive: true,
-        pageLength: 10,
-        order: [[0, 'asc']]
+window.showSuccess = function(message) {
+    Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: message,
+        timer: 2500,
+        showConfirmButton: false
     });
+};
 
-    // Confirmación con SweetAlert2 para botones de eliminar
+window.showWarning = function(message) {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Atención',
+        text: message
+    });
+};
+
+window.showError = function(message, title = '¡Oops...!') {
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        html: message,
+        confirmButtonText: 'Aceptar'
+    });
+};
+
+$(document).ready(function() {
+    $('.datatable').DataTable({ /* ... */ });
+    $(document).on('click', '.btn-delete', function(e) { /* ... */ });
+
     $(document).on('click', '.btn-delete', function(e) {
         e.preventDefault();
         const form = $(this).closest('form');
-        
+    
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "Esta acción no se puede revertir",
+            text: "Esta acción no se puede revertir.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
@@ -30,29 +49,4 @@ $(document).ready(function() {
         });
     });
 
-    // Mensajes de éxito
-    window.showSuccess = function(message) {
-        Swal.fire({
-            icon: 'success',
-            title: '¡Éxito!',
-            text: message,
-            timer: 3000,
-            showConfirmButton: false
-        });
-    };
-
-    // Mensajes de error
-    window.showError = function(message) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: message,
-            confirmButtonText: 'Aceptar'
-        });
-    };
 });
-
-// Función legacy (mantener compatibilidad)
-function remove() {
-    return confirm("¿Está seguro de que desea eliminar el registro?");
-}
