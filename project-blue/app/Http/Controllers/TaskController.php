@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Requests\TaskUpdateRequest;
+use App\Models\Project;
 use App\Models\Task;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $tasks = Task::all();
         return view('task.index', [
@@ -19,41 +17,39 @@ class TaskController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        
-        return view('task.create');
+        $projects = Project::all();   
+        return view('task.create', compact('projects'));
     }
 
     public function store(TaskStoreRequest $request)
     {
         $task = Task::create($request->validated());
-
-        $request->session()->flash('task.id', $task->id);
-
+        session()->flash('success', "Tarea creada exitosamente.");
         return redirect()->route('tasks.index');
     }
 
-    public function edit(Request $request, Task $task)
+    public function edit(Task $task)
     {
+        $projects = Project::all();
         return view('task.edit', [
             'task' => $task,
+            'projects' => $projects
         ]);
     }
 
     public function update(TaskUpdateRequest $request, Task $task)
     {
         $task->update($request->validated());
-
-        $request->session()->flash('task.id', $task->id);
-
+        session()->flash('success', 'Tarea actualizada correctamente.');
         return redirect()->route('tasks.index');
     }
 
-    public function destroy(Request $request, Task $task)
+    public function destroy(Task $task)
     {
         $task->delete();
-
+        session()->flash('success', 'Tarea eliminada correctamente.');
         return redirect()->route('tasks.index');
     }
 }

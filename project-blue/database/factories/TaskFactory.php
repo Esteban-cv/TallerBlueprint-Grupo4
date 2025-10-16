@@ -23,9 +23,10 @@ class TaskFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
+            
             'name' => fake()->name(),
             'description' => fake()->text(),
-            'status' => fake()->randomElement(["['completado'",""]),
+            'status' => fake()->randomElement(["completado","pendiente","cancelado"]),
             'due_date' => fake()->date(),
         ];
     }
