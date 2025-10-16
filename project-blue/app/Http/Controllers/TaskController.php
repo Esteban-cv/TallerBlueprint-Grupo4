@@ -11,21 +11,21 @@ use Illuminate\View\View;
 
 class TaskController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $tasks = Task::all();
-
         return view('task.index', [
             'tasks' => $tasks,
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
+        
         return view('task.create');
     }
 
-    public function store(TaskStoreRequest $request): Response
+    public function store(TaskStoreRequest $request)
     {
         $task = Task::create($request->validated());
 
@@ -34,14 +34,14 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function edit(Request $request, Task $task): Response
+    public function edit(Request $request, Task $task)
     {
         return view('task.edit', [
             'task' => $task,
         ]);
     }
 
-    public function update(TaskUpdateRequest $request, Task $task): Response
+    public function update(TaskUpdateRequest $request, Task $task)
     {
         $task->update($request->validated());
 
@@ -50,7 +50,7 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function destroy(Request $request, Task $task): Response
+    public function destroy(Request $request, Task $task)
     {
         $task->delete();
 

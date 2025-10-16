@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->text('description');
-            $table->enum('status', ["['completado'",""]);
+            $table->enum('status', ["completado","pendiente","cancelado"]);
             $table->date('due_date')->nullable();
             $table->timestamps();
         });

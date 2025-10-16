@@ -15,7 +15,7 @@ models:
     project_id: id foreign:projects.id onDelete:cascade onUpdate:cascade
     name: string
     description: text
-    status: enum:['completado', 'pendiente', 'cancelado']
+    status: enum:['completado','pendiente','cancelado']
     due_date: date nullable
     timestamps
   
