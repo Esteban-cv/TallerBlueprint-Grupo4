@@ -22,15 +22,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('projectUsers.index') }}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>Cursos</p>
+                    <p>Asignar usuario</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('projects.index') }}">
                     <i class="nc-icon nc-paper-2"></i>
-                    <p>Matrículas</p>
+                    <p>Proyectos</p>
                 </a>
             </li>
             <li>
