@@ -10,7 +10,7 @@
         </div>
         <ul class="nav">
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('projectUsers.index') }}">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-notes"></i>
                     <p>Asignar usuario</p>
                 </a>
