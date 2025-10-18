@@ -6,7 +6,7 @@
 @section('content')
     <div class="row mb-3">
         <div class="col-12 text-end">
-            <a href="{{ route('projectUsers.create') }}" class="btn btn-primary">
+            <a href="{{ route('project-users.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Nueva Asignación
             </a>
         </div>
@@ -39,11 +39,11 @@
                                             data-toggle="modal" data-target="#modalShow{{ $projectUser->id }}">
                                             <i class="nc-icon nc-zoom-split"></i>
                                         </button>
-                                        <a href="{{ route('projectUsers.edit', $projectUser->id) }}"
+                                        <a href="{{ route('project-users.edit', $projectUser->id) }}"
                                             class="btn btn-warning btn-fill btn-sm mr-2" title="Editar">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form method="POST" action="{{ route('projectUsers.destroy', $projectUser->id) }}"
+                                        <form method="POST" action="{{ route('project-users.destroy', $projectUser->id) }}"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')

@@ -30,9 +30,16 @@
             </div>
 
             <div class="form-group">
-                <label for="owner_id">ID del Propietario <span class="text-danger">*</span></label>
-                <input type="number" name="owner_id" id="owner_id" class="form-control @error('owner_id') is-invalid @enderror" 
-                       value="{{ old('owner_id') ?? $project->owner_id }}" placeholder="Ingrese el ID del propietario" required>
+                <label for="owner_id">Propietario <span class="text-danger">*</span></label>
+                <select name="owner_id" id="owner_id" class="form-control @error('owner_id') is-invalid @enderror" required>
+                    <option value="">Seleccione un propietario</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" 
+                                {{ (old('owner_id') ?? $project->owner_id) == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
                 @error('owner_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

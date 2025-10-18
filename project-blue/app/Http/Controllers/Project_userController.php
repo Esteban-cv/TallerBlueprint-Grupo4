@@ -2,34 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Project_userStoreRequest;
+use App\Http\Requests\Project_userUpdateRequest;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class Project_userController extends Controller
 {
-
-    private $rules = [
-        'project_id' => 'required|numeric|min:1|max:99999999999999999999',
-        'user_id' => 'required|numeric|min:1|max:99999999999999999999',
-        'role' => 'required|string|min:2|max:50'
-    ];
-
-    private $traductionAttributes = [
-        'project_id' => 'proyecto',
-        'user_id' => 'usuario',
-        'role' =>  'rol'
-    ];
-
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projectUsers = ProjectUser::all();
+        $projectUsers = ProjectUser::with(['project', 'user'])->get();
         return view('projectUser.index', compact('projectUsers'));
     }
 
@@ -46,91 +32,40 @@ class Project_userController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Project_userStoreRequest $request)
     {
-        $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
-        if($validator->fails())
-        {
-            $errors = $validator->errors();
-            return redirect()->route('projectUsers.create')->withInput()->withErrors($errors);
-        }
-
-        $projectUser = ProjectUser::create($request->all());
-        session()->flash('message', 'Registro creado exitosamente');
-        return redirect()->route('projectUsers.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-
+        ProjectUser::create($request->validated());
+        session()->flash('success', 'Asignación creada exitosamente');
+        return redirect()->route('project-users.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ProjectUser $projectUser)
     {
-        $projectUser = ProjectUser::find($id);
-        if($projectUser)//la asignación existe
-        {
-            $projects = Project::all();
-            $users = User::all();
-            return view('projectUser.edit', compact('projectUser', 'projects', 'users'));
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-            return redirect()->route('projectUsers.index');
-        }
+        $projects = Project::all();
+        $users = User::all();
+        return view('projectUser.edit', compact('projectUser', 'projects', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Project_userUpdateRequest $request, ProjectUser $projectUser)
     {
-
-        $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
-        if($validator->fails())
-        {
-            $errors = $validator->errors();
-            return redirect()->route('projectUsers.edit', $id)->withInput()->withErrors($errors);
-        }
-
-        $projectUser = ProjectUser::find($id);
-        if($projectUser)//la asignación existe
-        {
-            $projectUser->update($request->all());
-            session()->flash('message', 'Registro actualizado exitosamente');
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-        }
-        return redirect()->route('projectUsers.index');
+        $projectUser->update($request->validated());
+        session()->flash('success', 'Asignación actualizada correctamente');
+        return redirect()->route('project-users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProjectUser $projectUser)
     {
-        $projectUser = ProjectUser::find($id);
-        if($projectUser)//la asignación existe
-        {
-            $projectUser->delete();
-            session()->flash('message', 'Registro eliminado exitosamente');
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-        }
-        
-        return redirect()->route('projectUsers.index');
+        $projectUser->delete();
+        session()->flash('success', 'Asignación eliminada correctamente');
+        return redirect()->route('project-users.index');
     }
 }

@@ -20,7 +20,21 @@ class Project_userUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'projectUser' => ['required'],
+            'project_id' => ['required', 'integer', 'exists:projects,id'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'role' => ['required', 'string', 'max:50'],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     */
+    public function attributes(): array
+    {
+        return [
+            'project_id' => 'proyecto',
+            'user_id' => 'usuario',
+            'role' => 'rol',
         ];
     }
 }

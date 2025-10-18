@@ -2,32 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
-
-    private $rules = [
-        'title' => 'required|string|min:3|max:255',
-        'description' => 'required|string|min:10|max:1000',
-        'owner_id' => 'required|numeric|min:1|max:99999999999999999999'
-    ];
-
-    private $traductionAttributes = [
-        'title' => 'título',
-        'description' => 'descripción',
-        'owner_id' => 'propietario'
-    ];
-
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('owner')->get();
         return view('project.index', compact('projects'));
     }
 
@@ -36,95 +23,54 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        $users = User::all();
+        return view('project.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectStoreRequest $request)
     {
-        $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
-        if($validator->fails())
-        {
-            $errors = $validator->errors();
-            return redirect()->route('projects.create')->withInput()->withErrors($errors);
-        }
-
-        $project = Project::create($request->all());
-        session()->flash('message', 'Registro creado exitosamente');
+        Project::create($request->validated());
+        session()->flash('success', 'Proyecto creado exitosamente');
         return redirect()->route('projects.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-
+        return view('project.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        $project = Project::find($id);
-        if($project)//el proyecto existe
-        {
-            return view('project.edit', compact('project'));
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-            return redirect()->route('projects.index');
-        }
+        $users = User::all();
+        return view('project.edit', compact('project', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
-
-        $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
-        if($validator->fails())
-        {
-            $errors = $validator->errors();
-            return redirect()->route('projects.edit', $id)->withInput()->withErrors($errors);
-        }
-
-        $project = Project::find($id);
-        if($project)//el proyecto existe
-        {
-            $project->update($request->all());
-            session()->flash('message', 'Registro actualizado exitosamente');
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-        }
+        $project->update($request->validated());
+        session()->flash('success', 'Proyecto actualizado correctamente');
         return redirect()->route('projects.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        $project = Project::find($id);
-        if($project)//el proyecto existe
-        {
-            $project->delete();
-            session()->flash('message', 'Registro eliminado exitosamente');
-        }
-        else
-        {
-            session()->flash('warning', 'No se encuentra el registro solicitado');
-        }
-        
+        $project->delete();
+        session()->flash('success', 'Proyecto eliminado correctamente');
         return redirect()->route('projects.index');
     }
 }

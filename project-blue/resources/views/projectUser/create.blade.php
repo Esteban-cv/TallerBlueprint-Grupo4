@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <form method="POST" action="{{ route('projectUsers.store') }}">
+        <form method="POST" action="{{ route('project-users.store') }}">
             @csrf
 
             <div class="form-group">
@@ -52,7 +52,7 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"></i> Guardar Asignación
                 </button>
-                <a href="{{ route('projectUsers.index') }}" class="btn btn-secondary">
+                <a href="{{ route('project-users.index') }}" class="btn btn-secondary">
                     <i class="fa fa-times"></i> Cancelar
                 </a>
             </div>

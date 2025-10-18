@@ -20,9 +20,21 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'owner_id' => ['required', 'integer', 'exists:users.id,id'],
+            'owner_id' => ['required', 'integer', 'exists:users,id'],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     */
+    public function attributes(): array
+    {
+        return [
+            'title' => 'título',
+            'description' => 'descripción',
+            'owner_id' => 'propietario',
         ];
     }
 }
