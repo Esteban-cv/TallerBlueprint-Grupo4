@@ -13,10 +13,6 @@
                         <span class="no-icon">{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Ver perfil</a>
-                        <div class="divider"></div>
-                        <a class="dropdown-item" href="#">Cambiar contraseña</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Cerrar sesión
                         </a>

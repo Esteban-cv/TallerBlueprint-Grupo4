@@ -21,8 +21,8 @@
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <a href="#" class="btn btn-success btn-block">
-                                <i class="nc-icon nc-single-02"></i> Ver Usuarios
+                            <a href="{{ route('project-users.index') }}" class="btn btn-success btn-block">
+                                <i class="nc-icon nc-single-02"></i> Ver Asignaciones
                             </a>
                         </div>
                     </div>
@@ -81,8 +81,8 @@
                         </div>
                         <div class="col-7 col-md-8">
                             <div class="numbers">
-                                <p class="card-category">Usuarios</p>
-                                <p class="card-title">{{ \App\Models\User::count() }}</p>
+                                <p class="card-category">Asignaciones</p>
+                                <p class="card-title">{{ \App\Models\ProjectUser::count() }}</p>
                             </div>
                         </div>
                     </div>
