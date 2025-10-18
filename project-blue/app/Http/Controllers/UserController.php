@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,11 +19,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request)
-    {
-        return view('user.create');
-    }
-
     public function store(UserStoreRequest $request)
     {
         $user = User::create($request->validated());
@@ -32,27 +28,18 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function edit(Request $request, User $user)
-    {
-        return view('user.edit', [
-            'user' => $user,
-        ]);
-    }
-
     public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->validated());
 
-        session()->flash('success', 'Registro modificado exitosamente');
+        session()->flash('success', 'Registro actualizado exitosamente');
 
         return redirect()->route('users.index');
     }
 
-    public function destroy(Request $request, User $user)
+    public function destroy(User $user)
     {
         $user->delete();
-
-        session()->flash('success', 'Registro eliminado exitosamente');
 
         return redirect()->route('users.index');
     }
